@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from './store';
+import { checkDefaultUsers } from './features/auth/authSlice';
+import Header from './components/Header';
+import Home from './components/Home';
+import Login from './components/Login';
+import AdminDashboard from './components/AdminDashboard';
+import UserDashboard from './components/UserDashboard';
+import AdminManagement from './components/AdminManagement';
+import UserManagement from './components/UserManagement';
 
-function App() {
+const App: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(checkDefaultUsers());
+  }, [dispatch]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login/user" element={<Login userType="user" />} />
+          <Route path="/login/admin" element={<Login userType="admin" />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/user" element={<UserDashboard />} />
+          <Route path="/manage-users" element={<UserManagement />} />
+          <Route path="/manage-admins" element={<AdminManagement />} />
+        </Routes>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
