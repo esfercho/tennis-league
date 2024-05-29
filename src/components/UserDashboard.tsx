@@ -13,9 +13,13 @@ const UserDashboard: React.FC = () => {
   }, [dispatch]);
 
   const handleRegister = (id: string) => {
-
     console.log(user);
     
+    if (user) {
+      dispatch(registerUserInTournament({ tournamentId: id, userId: user }));
+    } else {
+      console.log('User is not logged in');
+    }
   };
 
   return (

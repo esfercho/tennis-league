@@ -16,7 +16,7 @@ const Login: React.FC<LoginProps> = ({ userType }) => {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    const collectionRef = collection(db, userType === 'admin'? 'admins' : 'users');
+    const collectionRef = collection(db, userType === 'admin' ? 'admins' : 'users');
     const querySnapshot = await getDocs(collectionRef);
 
     const userExists = querySnapshot.docs.some(
@@ -25,7 +25,7 @@ const Login: React.FC<LoginProps> = ({ userType }) => {
 
     if (userExists) {
       dispatch(login(username));
-      navigate(userType === 'admin'? '/admin' : '/user');
+      navigate(userType === 'admin' ? '/admin' : '/user');
     } else {
       alert('Invalid credentials');
     }
@@ -33,7 +33,7 @@ const Login: React.FC<LoginProps> = ({ userType }) => {
 
   return (
     <div>
-      <h1>{userType === 'admin'? 'Login Admin' : 'Login Usuario'}</h1>
+      <h1>{userType === 'admin' ? 'Login Admin' : 'Login Usuario'}</h1>
       <input
         type="text"
         placeholder="Usuario"
@@ -51,4 +51,4 @@ const Login: React.FC<LoginProps> = ({ userType }) => {
   );
 };
 
-export default Login;
+export default Login;
